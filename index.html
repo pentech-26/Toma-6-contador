@@ -171,7 +171,8 @@ function setup(){
   document.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{window._n=+b.dataset.k;setup()});
   $("#go").onclick=()=>{const names=[...document.querySelectorAll("[data-n]")].map((e,i)=>e.value.trim()||"Jugador "+(i+1));
     S={hand:1,players:names.map(x=>({name:x,pts:0})),over:false,shown:false};H=[];save();render()}}
-function addMan(i){const e=document.querySelector(`[data-m="${i}"]`),v=parseInt(e.value,10);if(S.over||isNaN(v)||v===0)return;mut(()=>{S.players[i].pts=Math.max(0,S.players[i].pts+v)})}
+let MOOA=null;function mugir(){try{if(!MOOA)MOOA=new Audio(MOO);MOOA.currentTime=0;const q=MOOA.play();if(q&&q.catch)q.catch(()=>{})}catch(e){}}
+function addMan(i){const e=document.querySelector(`[data-m="${i}"]`),v=parseInt(e.value,10);if(S.over||isNaN(v)||v===0)return;const antes=S.players[i].pts;mut(()=>{S.players[i].pts=Math.max(0,S.players[i].pts+v)});if(antes<LIM&&S.players[i].pts>=LIM)mugir()}
 function add(i,v){if(S.over)return;mut(()=>{S.players[i].pts+=v})}
 async function finMano(){
   const hot=S.players.some(p=>p.pts>=LIM);
