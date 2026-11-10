@@ -235,4 +235,5 @@ function render(){
   document.querySelectorAll("input.name").forEach(e=>e.onchange=()=>{S.players[+e.dataset.i].name=e.value.trim()||"Jugador";save();render()});
   if(S.over&&!S.shown){S.shown=true;save();setTimeout(showFin,200)}}
 render();
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
 </script></body></html>
