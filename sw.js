@@ -1,6 +1,6 @@
 /* Toma 6 · Contador — service worker (modo sin conexión)
    Sube CACHE en cada publicación (toma6-v1 → toma6-v2 …). */
-const CACHE = 'toma6-v3';
+const CACHE = 'toma6-v4';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.json',
   'icon-192.png', 'icon-512.png', 'maskable-192.png', 'maskable-512.png',
@@ -28,9 +28,10 @@ self.addEventListener('fetch', e => {
   const propio = url.origin === self.location.origin;
   if (!propio && !FUENTES.includes(url.origin)) return;
 
-  // Red primero (los cambios se ven al momento); la caché solo sirve sin conexión.
+  // Red primero, saltándose la caché del navegador (GitHub Pages guarda 10 min): los cambios se ven en cuanto se publican.
+  // La caché propia solo sirve sin conexión.
   e.respondWith(
-    fetch(req).then(res => {
+    fetch(req, propio ? { cache: 'no-cache' } : undefined).then(res => {
       if (res && (res.ok || res.type === 'opaque')) { const copia = res.clone(); caches.open(CACHE).then(c => c.put(req, copia)); }
       return res;
     }).catch(() =>
