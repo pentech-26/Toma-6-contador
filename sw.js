@@ -1,6 +1,6 @@
 /* Toma 6 · Contador — service worker (modo sin conexión)
    Sube CACHE en cada publicación (toma6-v1 → toma6-v2 …). */
-const CACHE = 'toma6-v1';
+const CACHE = 'toma6-v2';
 const ARCHIVOS = [
   './', 'index.html', 'manifest.json',
   'icon-192.png', 'icon-512.png', 'maskable-192.png', 'maskable-512.png',
